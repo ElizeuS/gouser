@@ -8,11 +8,14 @@ import (
 func ConfigRoutes(router *gin.Engine) *gin.Engine {
 	main := router.Group("api/v1")
 	{
-		users := main.Group("users")
+		users := main.Group("cliente")
 		{
-			users.GET("/", controllers.ShowUser)
+			users.POST("/", controllers.CreateUser)
+			users.GET("/:uuid", controllers.ShowUser)
+			users.PUT("/:uuid", controllers.UpdateUser)
+			users.DELETE("/:uuid", controllers.DeleteUser)
+			users.GET("/", controllers.ShowUsers)
 		}
-
 	}
 	return router
 }
