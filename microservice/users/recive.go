@@ -2,8 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
+	"time"
 
 	"github.com/streadway/amqp"
 )
@@ -13,6 +16,7 @@ type Person struct {
 	Andress string `json:"Andress"`
 }
 
+//Função responsável por receber os dados da fila (Queue) RabbitMQ.
 func main() {
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
@@ -63,11 +67,17 @@ func failOnError(err error, msg string) {
 	}
 }
 
+//Método responsável por salvar os dados em arquivos .json
 func save(data string) {
+
+	//contém o valor do repositório onde devem serem salvos os arquivos
+	str := os.Getenv("NEW_CLIENTS")
 
 	file, _ := json.MarshalIndent(data, "", " ")
 
-	//file2 := json.Unmarshal([]byte(file), &p)
+	//atualmente o arquivo á salvo com o valor da data atual
+	dt := time.Now()
+	dir := fmt.Sprintf("%s%s.json", str, dt.String())
 
-	_ = ioutil.WriteFile("../users/teste.json", file, 0644)
+	_ = ioutil.WriteFile(dir, file, 0644)
 }

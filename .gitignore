@@ -1,5 +1,5 @@
 details/
 .env
 
-docker-compose.txt
-.dockerfile.txt
+
+commands.txt

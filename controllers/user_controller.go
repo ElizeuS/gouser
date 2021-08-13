@@ -22,7 +22,6 @@ func ShowUser(c *gin.Context) {
 
 		return
 	}
-
 	c.JSON(200, user)
 
 }
@@ -51,7 +50,8 @@ func CreateUser(c *gin.Context) {
 
 		return
 	}
-
+	/*TO-DO: Verifdicar um modo de passar os valores de (user)
+	para o método submit(striing), contido em /microservice/ */
 	c.JSON(200, user.ID)
 
 }
